@@ -1,0 +1,31 @@
+workflows:
+  android-test-apk:
+    name: Ghazali Safi - Test APK
+    max_build_duration: 60
+    scripts:
+      - name: Set Android SDK location
+        script: echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
+      - name: Create Gradle wrapper
+        script: gradle wrapper --gradle-version 8.13
+      - name: Build test APK
+        script: ./gradlew assembleDebug
+    artifacts:
+      - app/build/outputs/apk/debug/*.apk
+
+  android-play-aab:
+    name: Ghazali Safi - Google Play AAB
+    max_build_duration: 60
+    environment:
+      android_signing:
+        - ghazali_upload_key
+      vars:
+        PACKAGE_NAME: "com.ghazali.safiaccounting"
+    scripts:
+      - name: Set Android SDK location
+        script: echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
+      - name: Create Gradle wrapper
+        script: gradle wrapper --gradle-version 8.13
+      - name: Build signed AAB
+        script: ./gradlew bundleRelease
+    artifacts:
+      - app/build/outputs/bundle/release/*.aab

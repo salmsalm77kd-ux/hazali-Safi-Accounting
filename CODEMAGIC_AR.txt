@@ -1,0 +1,26 @@
+غزالي صافي - البناء عبر Codemagic
+================================
+
+المشروع يحتوي مسارين:
+
+1) Ghazali Safi - Test APK
+يبني APK تجريبي بدون إعداد مفتاح توقيع خاص. استخدمه أولاً للتأكد أن التطبيق يعمل على الهاتف.
+
+2) Ghazali Safi - Google Play AAB
+يبني AAB موقّع لرفعه على Google Play.
+قبل تشغيله أضف Android keystore في Codemagic واجعل Reference = ghazali_upload_key
+
+طريقة الاستخدام المختصرة:
+1. فك الضغط وارفع مجلد المشروع إلى مستودع Git.
+2. أضف المستودع إلى Codemagic.
+3. سيقرأ Codemagic ملف codemagic.yaml الموجود في جذر المشروع.
+4. شغّل Test APK أولاً.
+5. بعد نجاح الاختبار، أضف مفتاح التوقيع باسم ghazali_upload_key.
+6. شغّل Google Play AAB ونزّل ملف app-release.aab من Artifacts.
+
+مهم جداً:
+- احتفظ بمفتاح التوقيع وكلمات مروره في مكان آمن. تحتاج نفس هوية التوقيع لتحديث التطبيق مستقبلاً.
+- أول إصدار على Google Play يُرفع يدوياً إلى Play Console.
+- معرف التطبيق: com.ghazali.safiaccounting
+- التخزين المحلي داخل Android يعتمد على IndexedDB/WebView.
+- المزامنة السحابية الموجودة في ملف HTML بقيت كما هي.
